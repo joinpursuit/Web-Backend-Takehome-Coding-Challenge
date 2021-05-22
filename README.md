@@ -65,8 +65,10 @@ Retrieve all user participants of a raffle.
 
 ##### POST `/raffles/:id/participants`
 
-Sign up a participants to a raffle given a raffle id. The JSON body to send must include `firstname`, `lastname`, and `phone`.
-`email` is optional
+Sign up a participants to a raffle given a raffle id. The JSON body to send must include `firstname`, `lastname`, and `email`.
+`phone` is optional
+
+`email` should be unique to somewhat protect the same user signing multiple times for the same raffle.
 
 Example body: 
 
@@ -79,9 +81,33 @@ Example body:
   }
 ```
 
-##### POST `/raffles/:id/draw`
+##### PUT `/raffles/:id/draw`
 
-Perform the raffle and select the winner at random.
+Perform the raffle and select the winner at random. The raffle will only be performed if the request body includes the secret token `s3CrE7`, if the token is not present or doesn't match return an error message.
+
+Request body:
+
+```json
+{ "token" : "s3CrE7" }
+```
+
+If drawing a winner is successful return the winner participant.
+
+Response body:
+
+```json
+{
+    "id": 2,
+    "raffle_id": 1,
+    "firstname": "John",
+    "lastname": "Snow",
+    "email": "jblizzard@email.com",
+    "phone": null,
+    "registered_at": "2021-05-22T15:43:52.647Z"
+}
+```
+`
+**Note:** If a winner is attempted to be picked multiple times don't allow it and return the existing winner instead.
 
 #### Bonus Endpoints
 
