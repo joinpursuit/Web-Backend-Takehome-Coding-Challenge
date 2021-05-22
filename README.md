@@ -81,7 +81,7 @@ Example body:
   }
 ```
 
-##### PUT `/raffles/:id/draw`
+##### PUT `/raffles/:id/winner`
 
 Perform the raffle and select the winner at random. The raffle will only be performed if the request body includes the secret token `s3CrE7`, if the token is not present or doesn't match return an error message.
 
