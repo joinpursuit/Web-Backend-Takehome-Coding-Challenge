@@ -22,12 +22,12 @@ Back-End coding challenge involving a Node.js & Express.js server and a Postgres
 
 ## Technical Requirements
 
-Create a back-end server and database to manage a Raffle application. Users are able to:
+Your job is to create a back-end server and database for a Raffle application. Users are able to:
 
 - Create raffles
 - List all raffles
 - Add participants users to raffles
-- Draw a winner from a raffle, etc.
+- Draw a winner from a raffle
 
 ### Database
 
@@ -47,12 +47,15 @@ Retrieve all raffles.
 
 ##### POST `/raffles`
 
-Post a new raffle. The JSON body to send in the request should include a `name` property.
+Post a new raffle. The JSON body to send in the request should include a `name` and `secret_token` property.
 
 Example body: 
 
 ```json
-{ "name": "My first Raffle" }
+{ 
+  "name": "My first Raffle", 
+  "secret_token": "s3CrE7" 
+}
 ```
 
 ##### GET `/raffles/:id`
@@ -65,10 +68,10 @@ Retrieve all user participants of a raffle.
 
 ##### POST `/raffles/:id/participants`
 
-Sign up a participants to a raffle given a raffle id. The JSON body to send must include `firstname`, `lastname`, and `email`.
+Sign up a participant to a raffle given a raffle id. The JSON body to send must include `firstname`, `lastname`, and `email`.
 `phone` is optional
 
-`email` should be unique to somewhat protect the same user signing multiple times for the same raffle.
+`email` should be unique to protect from the same user signing multiple times for the same raffle.
 
 Example body: 
 
@@ -78,17 +81,19 @@ Example body:
   "lastname": "Doe",
   "email": "jdoe@email.com",
   "phone": "+1 (917) 555-1234",
-  }
+}
 ```
 
 ##### PUT `/raffles/:id/winner`
 
-Perform the raffle and select the winner at random. The raffle will only be performed if the request body includes the secret token `s3CrE7`, if the token is not present or doesn't match return an error message.
+Perform the raffle and select the winner at random picking from the users that are signed up for the raffles specified by id. The raffle will only be performed if the request body includes a secret token that matches the token used the raffle was created via POST `/raffles`.
+
+If the token is not present or doesn't match return an error message.
 
 Request body:
 
 ```json
-{ "token" : "s3CrE7" }
+{ "secret_token" : "s3CrE7" }
 ```
 
 If drawing a winner is successful return the winner participant.
@@ -106,8 +111,8 @@ Response body:
     "registered_at": "2021-05-22T15:43:52.647Z"
 }
 ```
-`
-**Note:** If a winner is attempted to be picked multiple times don't allow it and return the existing winner instead.
+
+**Note:** If a winner is attempted to be picked multiple times don't allow it and return the existing winner instead. Multiple identical PUT request should have the same result, this is the definition of [idempotence](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT#:~:text=The%20difference%20between%20PUT%20and,placing%20an%20order%20several%20times.).
 
 #### Bonus Endpoints
 
