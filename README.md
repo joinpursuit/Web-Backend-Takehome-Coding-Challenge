@@ -126,7 +126,8 @@ Using a query param `active`, return raffles that are "active" (`active=true`), 
 
 ## Submission Guidelines
 
-- You should take no more than 5 hours on this challenge.
+- We think this challenge would take ~7 hours to complete, so allocate your time appropriately.
+- You must submit your solution no later than **Monday, May 31st at 11:59pm.**
 - Submit the link to your back-end server code in Repl.it using the [submission form](https://docs.google.com/forms/d/e/1FAIpQLSeY0nBqtXTV06b2CmAreHLJzVHlG0cQHUx9g1RKPYer0hNVVQ/viewform?usp=sf_link)
 - For any questions reach out to @Alejo in the [Pursuit Core Workspace](https://pursuit-core.slack.com/)
 
