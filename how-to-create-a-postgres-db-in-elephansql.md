@@ -40,11 +40,7 @@ To create tables and setup your database, we recommend you use Beekeeper Studio,
 
 ## Connecting to your Database in your Back-end Server
 
-To connect to your database from your server running on Repl.it, save your Database URL as Secret Environment Variable with the name `DATABASE_URL` as seen in the gif below.
-
-![Adding an environment variable to a replit app](./assets/replit-env-variables.gif)
-
->To learn more read [Staying safe: Keeping your passwords and other secrets secure - Repl.it](https://docs.replit.com/tutorials/08-storing-secrets-and-history_)
+To connect to your database from your server we recommend you  store your database in an environment variable `DATABASE_URL` that you can load with a package like `dotenv`
 
 Your database url will be available in `process.env.DATABASE_URL`. For example to connect to your database using `pg-promise` you would write the following code.
 
